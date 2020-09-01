@@ -6,7 +6,9 @@ import Tab from './Tab'
 import App4 from './App4';
 import Chart from './cc'
 import {BrowserRouter as Router,Route,Switch,Link} from "react-router-dom";
-import AuthDataProvider from '../../../src/components/login/AuthDataProvider'
+import {AuthDataContext} from '../../components/login/AuthDataProvider'
+
+
 
 function App(){
 
@@ -21,11 +23,11 @@ function App(){
           <AutoComo/>
         </div> */}
         <Switch>
-          <AuthDataProvider>
+          <AuthDataContext.Provider value={{session:true}}>
           <Route exact path="/Homepage" component={Homepage} />
           <Route exact path="/:level2key" component={App4} />
           <Route exact path="/chart/:lev2/:lev3/:lev4/:lev5" component={Chart} />
-          </AuthDataProvider>
+          </AuthDataContext.Provider>
         </Switch>
     </div>
   </Router>

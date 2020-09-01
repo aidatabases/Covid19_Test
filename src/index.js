@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useContext } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect,Router } from "react-router-dom";
 import Aboutus from "views/examples/Aboutus";
@@ -22,11 +22,11 @@ import Navbaar from "views/examples/navbaar";
 import NewFooter from "views/examples/NewFooter";
 import Navbaar2 from "views/examples/navbaar2";
 import Profile from "./views/examples/Profile";
-import {useAuthDataContext} from './components/login/AuthDataProvider'
+import { AuthDataContext } from "components/login/AuthDataProvider";
 
 const PrivateRoute = ({ component, ...options }) => {
-  // const { user } = useAuthDataContext();
-  const user={session:!true}
+  const user = useContext(AuthDataContext);
+  console.log(user)
   if(user.session)
   return <Route {...options} component={component} />;
   else
