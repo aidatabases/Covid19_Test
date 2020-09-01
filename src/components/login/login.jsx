@@ -27,7 +27,7 @@ export class Login extends React.Component {
     
   //   const headers = {
   //     'Access-Control-Allow-Origin':'*',
-  //     'Content-Type':'application/json',
+  //     'Content-Type':'application/json',history.push('/profile')
   // }
 
     fetch('http://localhost:5000/profile', {
@@ -67,32 +67,31 @@ export class Login extends React.Component {
       email: '' ,
       password: '',
     });
-    console.log(this.state)
+    console.log(this.state.email)
     // axios.post('http://localhost:5000/login', this.state)
   //   const headers = {
   //     'Access-Control-Allow-Origin':'*',
   //     'Content-Type':'application/json',
   // }
-    fetch('http://localhost:5000/login', {
-      method: 'POST',
-      body: JSON.stringify({email:this.state.email,password:this.state.password}),
-      // headers: headers,
-      // credentials: "include"
-    })
-    .then(res=>res.json())
+    // fetch('http://localhost:5000/login', {
+    //   method: 'POST',
+    //   body: JSON.stringify({email:this.state.email,password:this.state.password}),
+    //   // headers: headers,
+    //   // credentials: "include"
+      
+    // })
+    axios.post('http://localhost:5000/login', this.state)
     .then(res => {
-      console.log(res)
-        let data = res
-        if(res["verified"] === "true"){
-        const session_id =res["session-id"]
-        console.log("dat",session_id)
+      console.log(res.data)
+        if(res.data["verified"] === "true"){
+        const session_id =res.data["session-id"]
         Cookies.set('session', session_id)
         this.setState({ authenticated:true})
         history.push('/profile')
         }
-        else if(res["verified"] === "false"){
-          console.log(res["error"])
-          window.alert(res["error"])
+        else if(res.data["verified"] === "false"){
+          console.log(res.data["error"])
+          window.alert(res.data["error"])
         }
       
     })

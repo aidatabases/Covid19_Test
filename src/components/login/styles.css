@@ -43,6 +43,7 @@ p, div {
     font-family: "Segoe UI", "Ubuntu", "Roboto", "Open Sans", "Helvetica Neue", sans-serif;
     font-size: 2em;
     font-weight: lighter;
+    history.push('/profile')
     margin-top: 0.25em;
     color: #222;
   }

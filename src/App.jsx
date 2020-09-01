@@ -40,7 +40,7 @@ class App extends React.Component {
               <Login containerRef={ref => (this.current = ref)} />
             )}
             {!isLogginActive && (
-              <Register containerRef={ref => (this.current = ref)} />
+              <Register containerRef={ref => (this.current = ref)} onClick={this.changeState.bind(this)}/>/// onClick is to slider to login page on click on register button of register form
             )}
           </div>
           <RightSide

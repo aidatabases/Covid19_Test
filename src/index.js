@@ -21,9 +21,17 @@ import Page from 'views/examples/Aidemo'
 import Navbaar from "views/examples/navbaar";
 import NewFooter from "views/examples/NewFooter";
 import Navbaar2 from "views/examples/navbaar2";
-import Profile from "./views/examples/Profile"
+import Profile from "./views/examples/Profile";
+import {useAuthDataContext} from './components/login/AuthDataProvider'
 
-
+const PrivateRoute = ({ component, ...options }) => {
+  // const { user } = useAuthDataContext();
+  const user={session:!true}
+  if(user.session)
+  return <Route {...options} component={component} />;
+  else
+  return <Route path="/" component={App} />;
+};
 ReactDOM.render(
   <div >
     <Navbaar2 />  
@@ -34,15 +42,8 @@ ReactDOM.render(
        exact path= "/profile"
         render={props => <Profile {...props} />}
       />
-         <Route
-        exact path="/About"
-        render={props => <ReactAbout {...props} />}
-      />     
-      <Route
-        exact path="/"
-        render={props => <LandingPage {...props} />}
-      />
-      
+   0   <PrivateRoute path="/About" component={ReactAbout} /> 
+       <PrivateRoute exact path="/" component={LandingPage} />
        <Route
         path="/Login"
         render={props => <App {...props} />}
@@ -51,18 +52,9 @@ ReactDOM.render(
         path="/Register"
         render={props => <App {...props} />}
       />
-       <Route
-        path="/AI-TradeAnalytics"
-        render={props => <TradeAnalytics {...props} />}
-      />
-      <Route
-        path="/AI-Economics"
-        render={props => <Economics {...props} />}
-      />
-      <Route
-        path="/AI-Demographics"
-        render={props => <Page {...props} />}
-      />
+      <PrivateRoute exact path="/AI-TradeAnalytics" component={TradeAnalytics} /> 
+      <PrivateRoute exact path="/AI-Economics" component={Economics} />
+      <PrivateRoute exact path="/AI-Demographics" component={Page} />
       <Route path="/">
         <br /><br /><br />  
         <h3>404 Page Not Found!</h3>

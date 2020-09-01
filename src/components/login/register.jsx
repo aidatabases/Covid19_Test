@@ -313,9 +313,10 @@ export class Register extends React.Component {
         // this.setState({ authenticated:true})
         // history.push('/profile')
         // this.context.history.push('/AI-Economics')
+        
+        this.props.onClick()//////for register to login
         window.alert("Registered Succesfully")
 
-        history.push('/profile')
         console.log("Registration Done!")
         }
 
