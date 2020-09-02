@@ -20,7 +20,7 @@ import aiml from "./AIML.jpg"
 import aidb from "./AIDB.png"
 import NewFooter from "./NewFooter";
 import DemoDrop from "./demodropdowns";
-import {loginContext} from "../../Start"
+// import {loginContext} from "../../Start"
 
 
 const content = [
@@ -106,14 +106,14 @@ function LandingPage(props) {
       document.body.classList.remove("sidebar-collapse");
     };
   });
-  const msg = useContext(loginContext)
+  // const msg = useContext(loginContext)
 
   
   return (
    <>
    <div >
      <h1>
-       Status: {msg}
+       {/* Status: {msg} */}
      </h1>
    </div>
       <Slide />

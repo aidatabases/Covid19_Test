@@ -1,16 +1,16 @@
-import React, { Component,useEffect,useState } from 'react'
+import React, { Component,useEffect,useState, useContext } from 'react'
 import Cookies from 'js-cookie';
 import {useHistory} from "react-router-dom"
 import UserBio from "./UserBio"
+import {Loginn,Logout} from '../../MAIN'
+
 
 function Profile() {
     let history = useHistory();
-
     const session = Cookies.get("session")
     const useremail = Cookies.get("useremail")
     console.log(session)
     console.log(useremail)
-
     const [authenticated,changeAuth]= useState(false)
     // const [data,setData] = useState({})
     // setData(useremail)
@@ -28,7 +28,7 @@ function Profile() {
     function logout(){
         Cookies.remove("session")
         history.push("/login")
-
+        Logout();/* For Session Destroy Cookies */
         // const headers = {
         //     'Access-Control-Allow-Origin':'*',
         //     'Content-Type':'application/json',
