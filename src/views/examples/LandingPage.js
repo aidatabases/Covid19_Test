@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useContext} from "react";
 import  "./LandingPage.css"
 import { render } from "react-dom";
 import "react-animated-slider/build/horizontal.css";
@@ -20,6 +20,7 @@ import aiml from "./AIML.jpg"
 import aidb from "./AIDB.png"
 import NewFooter from "./NewFooter";
 import DemoDrop from "./demodropdowns";
+import {loginContext} from "../../Start"
 
 
 const content = [
@@ -93,7 +94,7 @@ const Slide = () => (
 
     
 
-function LandingPage() {
+function LandingPage(props) {
   const [firstFocus, setFirstFocus] = React.useState(false);
   const [lastFocus, setLastFocus] = React.useState(false);
   React.useEffect(() => {
@@ -105,13 +106,16 @@ function LandingPage() {
       document.body.classList.remove("sidebar-collapse");
     };
   });
+  const msg = useContext(loginContext)
 
-  const footer = {
-      paddingTop: '50px'
-  };
-
+  
   return (
    <>
+   <div >
+     <h1>
+       Status: {msg}
+     </h1>
+   </div>
       <Slide />
       <SearchBar />
       <Mycard />

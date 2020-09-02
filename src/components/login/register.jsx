@@ -305,18 +305,21 @@ export class Register extends React.Component {
       res = res.data
       console.log("Verification",res["verified"])
       if(res["verified"] === "true"){
-        const session_id =res["session-id"]
-        const useremail = res["useremail"]
-        console.log("Session ID",session_id)
-        Cookies.set('session', session_id)
-        Cookies.set('useremail', useremail)
+        // const session_id =res["session-id"]
+        // const useremail = res["useremail"]
+        // console.log("Session ID",session_id)
+        // Cookies.set('session', session_id)
+        // Cookies.set('useremail', useremail)
         // this.setState({ authenticated:true})
         // history.push('/profile')
         // this.context.history.push('/AI-Economics')
-        window.alert("Registered Succesfully")
+        window.alert("Registered Succesfully, Please Login to Continue.")
 
-        history.push('/profile')
-        console.log("Registration Done!")
+        // history.push('/profile')
+
+        history.push('/login')
+        window.location.reload();
+        console.log("Registration Successfully.")
         }
 
       else if(res["verified"] === "false"){

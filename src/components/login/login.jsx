@@ -13,53 +13,55 @@ export class Login extends React.Component {
     authenticated:false
   };
 
-  componentDidMount(){
+  // componentDidMount(){
 
-  const session = Cookies.get("session")
-  if(typeof session === "string"){
-      //changeAuth(true)
-      this.setState({ authenticated:true})
-    }
-    else{
-      this.setState({ authenticated:false})
-    }
+  // const session = Cookies.get("session")
+  // if(typeof session === "string"){
+  //     //changeAuth(true)
+  //     this.setState({ authenticated:true})
+  //     console.log("Shanmukh says hi")
+  //   }
+  //   else{
+  //     this.setState({ authenticated:false})
+  //     console.log("Sorry People")
+  //   }
 
     
-  //   const headers = {
-  //     'Access-Control-Allow-Origin':'*',
-  //     'Content-Type':'application/json',
+  // //   const headers = {
+  // //     'Access-Control-Allow-Origin':'*',
+  // //     'Content-Type':'application/json',
+  // // }
+
+  //   fetch('http://localhost:5000/profile', {
+  //     method: 'POST',
+  //     body: JSON.stringify({sesid:session}),
+  //     // headers: headers,
+  //     // credentials: "include"
+  //   })
+  //   .then(res=>res.json())
+  //   .then(res => {
+  //       console.log("profile",res)
+  //       console.log(res)
+  //       if(res.session === "expired"){
+  //         this.setState({ authenticated:false})
+  //         //window.alert("session exipred !pls login")
+  //         //history.push("/login")
+  //       }
+  //       else if(res["session"] === "active"){
+  //         if(session === res["session-id"]){
+
+  //           this.setState({ authenticated:true})
+  //           history.push("/profile")
+  //         }else{
+  //           this.setState({ authenticated:false})
+  //         }
+  //       }
+
+  //   })
+  //   .catch(err => {
+  //     console.log('error:-' + err)
+  //   })
   // }
-
-    fetch('http://localhost:5000/profile', {
-      method: 'POST',
-      body: JSON.stringify({sesid:session}),
-      // headers: headers,
-      // credentials: "include"
-    })
-    .then(res=>res.json())
-    .then(res => {
-        console.log("profile",res)
-        console.log(res)
-        if(res.session === "expired"){
-          this.setState({ authenticated:false})
-          //window.alert("session exipred !pls login")
-          //history.push("/login")
-        }
-        else if(res["session"] === "active"){
-          if(session === res["session-id"]){
-
-            this.setState({ authenticated:true})
-            history.push("/profile")
-          }else{
-            this.setState({ authenticated:false})
-          }
-        }
-
-    })
-    .catch(err => {
-      console.log('error:-' + err)
-    })
-  }
   
   handleSubmit = async (event) => {
     event.preventDefault();
@@ -68,27 +70,29 @@ export class Login extends React.Component {
       password: '',
     });
     console.log(this.state)
-    // axios.post('http://localhost:5000/login', this.state)
+    axios.post('http://localhost:5000/login', this.state)
   //   const headers = {
   //     'Access-Control-Allow-Origin':'*',
   //     'Content-Type':'application/json',
   // }
-    fetch('http://localhost:5000/login', {
-      method: 'POST',
-      body: JSON.stringify({email:this.state.email,password:this.state.password}),
-      // headers: headers,
-      // credentials: "include"
-    })
-    .then(res=>res.json())
+    // fetch('http://localhost:5000/login', {
+    //   method: 'POST',
+    //   body: JSON.stringify({email:this.state.email,password:this.state.password}),
+    //   // headers: headers,
+    //   // credentials: "include"
+    // })
+    // .then(res=>res.json())
     .then(res => {
-      console.log(res)
-        let data = res
+      // console.log(res)
+        res = res.data
         if(res["verified"] === "true"){
-        const session_id =res["session-id"]
-        console.log("dat",session_id)
+        const session_id = res["session-id"]
+        const useremail = res["useremail"]
+        console.log("Session ID",session_id)
         Cookies.set('session', session_id)
+        Cookies.set('useremail', useremail)
         this.setState({ authenticated:true})
-        history.push('/profile')
+        history.push('/')
         }
         else if(res["verified"] === "false"){
           console.log(res["error"])
@@ -101,14 +105,31 @@ export class Login extends React.Component {
   
 
   render() {
-    if(this.state.authenticated){
+    // if(this.state.authenticated){
+    //   return(
+    //   <div>
+    //     <h1>Logged in</h1>
+    //     <a href="/profile">profile</a>
+    //   </div>
+    //   )
+    // }
+  const session = Cookies.get("session")
+  if(typeof session === "string"){
+      //changeAuth(true)
+      // this.setState({ authenticated:true})
+      console.log("Shanmukh says hi")
       return(
-      <div>
-        <h1>Logged in</h1>
-        <a href="/profile">profile</a>
-      </div>
-      )
+          <div>
+            <h1>Logged in</h1>
+            <a href="/profile">profile</a>
+          </div>
+          )
     }
+    // else{
+    //   this.setState({ authenticated:false})
+    //   console.log("Sorry People")
+    // }
+
     else {
     return (
       <div className="base-container" ref={this.props.containerRef}>
