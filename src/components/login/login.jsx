@@ -4,6 +4,7 @@ import axios from "axios";
 import history from"./history";
 
 import Cookies from 'js-cookie';
+import {Loginn} from '../../MAIN'
 
 export class Login extends React.Component {
   
@@ -93,6 +94,7 @@ export class Login extends React.Component {
         Cookies.set('useremail', useremail)
         this.setState({ authenticated:true})
         history.push('/')
+        Loginn({flag:Cookies.get('session')});
         }
         else if(res["verified"] === "false"){
           console.log(res["error"])

@@ -1,8 +1,6 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import Start from "Start";
+import MAIN from "MAIN";
 
-ReactDOM.render(
-  <Start /> ,document.getElementById("root")
- );
+ReactDOM.render(<MAIN/>,document.getElementById("root"));

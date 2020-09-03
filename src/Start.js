@@ -1,4 +1,5 @@
 import React, {useContext, createContext, useState, useEffect}from "react";
+import Cookies from 'js-cookie';
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect,Router } from "react-router-dom";
 import Aboutus from "views/examples/Aboutus";
@@ -21,89 +22,50 @@ import Page from 'views/examples/Aidemo'
 import Navbaar from "views/examples/navbaar";
 import NewFooter from "views/examples/NewFooter";
 import Navbaar2 from "views/examples/navbaar2";
-import Profile from "./views/examples/Profile"
+import Profile from "./views/examples/Profile";
 
 
-export const loginContext = createContext(null)
-
-function Start() {
-
+function Start(props) {
+  const PrivateRoute = ({ Auth,component, ...options }) => {
+    if(Auth)
+    {
+      console.log(Auth)
+      return <Route {...options} component={component} />;
+    }
+    else
+    return <Route path="/" component={App} />;
+  };
   
-  const [isLogged,changeLogged]= useState("false")
-
-    useEffect(() =>{
-      axios
-        .get("http://localhost:5000/profile")
-        .then( res=>{
-          res = res.data
-          if (res["session"] === "active"){
-            changeLogged("true")
-            console.log(res)
-          } 
-        }
-        )
-  },[])
-
-      
-  
-      
       return(
           <>
-        <div >
-        <Navbaar2 />  
-      <div>
-          <BrowserRouter>
-         <Router history={history} >
-         <Switch>
-         <Route
-           exact path= "/profile"
-            render={props => <Profile {...props} />}
-          />
-             <Route
-            exact path="/About"
-            render={props => <ReactAbout {...props} />}
-          /> 
-           <Route
-            path="/Login"
-            render={props => <App {...props} />}
-          />
-           <Route
-            path="/Register"
-            render={props => <App {...props} />}
-          />
-           <Route
-            path="/AI-TradeAnalytics"
-            render={props => <TradeAnalytics {...props} />}
-          />
-          <Route
-            path="/AI-Economics"
-            render={props => <Economics {...props} />}
-          />
-          <Route
-            path="/AI-Demographics"
-            render={props => <Page {...props} />}
-          />
-          {/* <Route path="/">
-            <br /><br /><br />  
-            <h3>404 Page Not Found!</h3>
-          </Route> */}
-          <loginContext.Provider value = {isLogged}>   
-          <Route
-            exact path="/"
-            render={props => <LandingPage {...props} />}
-          />
-          </loginContext.Provider>
-          {/* <Route path="/:lev2/:lev3/:lev4/:lev5" ><Example/></Route> */}
-            
-          </Switch>
-          </Router>
-          </BrowserRouter>
-      </div>
-      <div>
-        <NewFooter />
-      </div>
-    </div>
-    </>
+          <div>
+            <Navbaar2 />    
+            <div>
+              <BrowserRouter>
+                <Router history={history} >
+                  <Switch>
+                    <Route exact path= "/profile" render={props => <Profile {...props} />}/>
+                    <PrivateRoute path="/About" component={ReactAbout} Auth={props.Auth.flag}/> 
+                    <PrivateRoute exact path="/" component={LandingPage} Auth={props.Auth.flag} />
+                    <Route path="/Login" render={props => <App {...props} />}/>
+                    <Route path="/Register" render={props => <App {...props} />}/>
+                    <PrivateRoute exact path="/AI-TradeAnalytics" component={TradeAnalytics} Auth={props.Auth.flag}/> 
+                    <PrivateRoute exact path="/AI-Economics" component={Economics} Auth={props.Auth.flag}/>
+                    <PrivateRoute exact path="/AI-Demographics" component={Page} Auth={props.Auth.flag}/>
+                    <Route path="/">
+                    <br /><br /><br />  
+                    <h3>404 Page Not Found!</h3>
+                    </Route>
+                    {/* <Route path="/:lev2/:lev3/:lev4/:lev5" ><Example/></Route> */}
+                  </Switch>
+                </Router>
+              </BrowserRouter>
+            </div>
+          <div>
+          <NewFooter/>
+          </div>
+        </div>
+      </>
       )
 }
 

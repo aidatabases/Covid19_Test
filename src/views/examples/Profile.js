@@ -2,6 +2,7 @@ import React, { Component,useEffect,useState } from 'react'
 import Cookies from 'js-cookie';
 import {useHistory} from "react-router-dom"
 import UserBio from "./UserBio"
+import {Logout} from '../../MAIN'
 
 function Profile() {
     let history = useHistory();
@@ -28,7 +29,7 @@ function Profile() {
     function logout(){
         Cookies.remove("session")
         history.push("/login")
-
+        Logout();
         // const headers = {
         //     'Access-Control-Allow-Origin':'*',
         //     'Content-Type':'application/json',
