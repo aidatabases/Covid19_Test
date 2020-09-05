@@ -71,7 +71,7 @@ export class Login extends React.Component {
       password: '',
     });
     console.log(this.state)
-    axios.post('http://localhost:5000/login', this.state)
+    axios.post('https://api.aidatabases.in/login', this.state)
   //   const headers = {
   //     'Access-Control-Allow-Origin':'*',
   //     'Content-Type':'application/json',
