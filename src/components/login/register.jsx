@@ -298,7 +298,7 @@ export class Register extends React.Component {
   //     body: JSON.stringify(this.state)
   // };
     console.log(this.state)
-    axios.post('http://localhost:5000/register', this.state)
+    axios.post('https://api.aidatabases.in/register', this.state)
     // fetch('http://localhost:5000/Register',requestOptions)
     // .then(res => res.json())
     .then(res=>{
