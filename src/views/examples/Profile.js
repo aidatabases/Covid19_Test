@@ -34,7 +34,7 @@ function Profile() {
         //     'Access-Control-Allow-Origin':'*',
         //     'Content-Type':'application/json',
         // }
-          fetch('http://api.aidatabases.in:5000/profile', {
+          fetch('https://api.aidatabases.in/profile', {
             method: 'POST',
             body: JSON.stringify({sesid:session})
             // headers: headers,
@@ -54,7 +54,7 @@ function Profile() {
         //     'Access-Control-Allow-Origin':'*',
         //     'Content-Type':'application/json',
         // }
-          fetch('http://api.aidatabases.in:5000/profile', {
+          fetch('https://api.aidatabases.in/profile', {
             method: 'POST',
             body: JSON.stringify({sesid:session})
             // headers: headers,
