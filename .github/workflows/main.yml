@@ -1,0 +1,23 @@
+name: OnPush
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: docker login
+      env:
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}   
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+    - name: docker build AI-Frontend-Test
+      run: |
+        docker build . -t aidatabases/build:AI-Frontend-Test-latest
+    - name: docker push
+      run: |
+        docker push aidatabases/build:AI-Frontend-Test-latest
