@@ -41,7 +41,7 @@ function UserBio(){
 
     function getdata() {
       
-      fetch('http://localhost:5000/details', {
+      fetch('https://api.aidatabases.in/details', {
             method: 'POST',
             body: JSON.stringify({sesid:session}),
             // headers: headers,
@@ -83,7 +83,7 @@ function UserBio(){
     function handleSubmit(event) {
         
         
-          fetch('http://localhost:5000/adddetails', {
+          fetch('https://api.aidatabases.in/adddetails', {
             method: 'POST',
             body: JSON.stringify({sesid:session,bio:Bio,Profession:Proffession,type:type}),
             
